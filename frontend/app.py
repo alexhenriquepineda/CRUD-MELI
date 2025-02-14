@@ -32,11 +32,11 @@ with st.expander("Adicionar um Novo Produto"):
         name = st.text_input("Nome do Produto")
         description = st.text_area("Descrição do Produto")
         price = st.number_input("Preço", min_value=0.01, format="%f")
-        categoria = st.selectbox(
+        category = st.selectbox(
             "Categoria",
             ["Eletrônico", "Eletrodoméstico", "Móveis", "Roupas", "Calçados"],
         )
-        email_fornecedor = st.text_input("Email do Fornecedor")
+        email_supplier = st.text_input("Email do Fornecedor")
         submit_button = st.form_submit_button("Adicionar Produto")
 
         if submit_button:
@@ -46,8 +46,8 @@ with st.expander("Adicionar um Novo Produto"):
                     "name": name,
                     "description": description,
                     "price": price,
-                    "categoria": categoria,
-                    "email_fornecedor": email_fornecedor,
+                    "category": category,
+                    "email_supplier": email_supplier,
                 },
             )
             show_response_message(response)
@@ -102,3 +102,11 @@ with st.expander("Obter Detalhes de um Produto"):
             st.write(df.to_html(index=False), unsafe_allow_html=True)
         else:
             show_response_message(response)
+
+
+# Deletar Produto
+with st.expander("Deletar Produto"):
+    delete_id = st.number_input("ID do Produto para Deletar", min_value=1, format="%d")
+    if st.button("Deletar Produto"):
+        response = requests.delete(f"http://backend:8000/products/{delete_id}")
+        show_response_message(response)
