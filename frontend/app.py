@@ -76,3 +76,29 @@ with st.expander("Visualizar Produtos"):
             st.write(df.to_html(index=False), unsafe_allow_html=True)
         else:
             show_response_message(response)
+
+
+with st.expander("Obter Detalhes de um Produto"):
+    get_id = st.number_input("ID do Produto", min_value=1, format="%d")
+    if st.button("Buscar Produto"):
+        response = requests.get(f"http://backend:8000/products/{get_id}")
+        if response.status_code == 200:
+            product = response.json()
+            df = pd.DataFrame([product])
+
+            df = df[
+                [
+                    "id",
+                    "name",
+                    "description",
+                    "price",
+                    "category",
+                    "email_supplier",
+                    "created_at",
+                ]
+            ]
+
+            # Exibe o DataFrame sem o índice
+            st.write(df.to_html(index=False), unsafe_allow_html=True)
+        else:
+            show_response_message(response)
