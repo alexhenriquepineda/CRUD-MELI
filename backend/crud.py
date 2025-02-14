@@ -74,13 +74,13 @@ def update_product(db: Session, product_id: int, product: ProductUpdate):
 
     if db_product is None:
         return None
-    
+
     if product.name is not None:
         db_product.name = product.name
 
     if product.description is not None:
         db_product.description = product.description
-    
+
     if product.price is not None:
         db_product.price = product.price
 
@@ -94,4 +94,3 @@ def update_product(db: Session, product_id: int, product: ProductUpdate):
     db.refresh(db_product)
 
     return db_product
-
