@@ -5,7 +5,9 @@ from schema import ProductCreate, ProductUpdate, ProductResponse
 from typing import List
 from crud import get_products, get_product, create_product, delete_product, update_product
 
+
 router = APIRouter()
+
 
 @router.get("/products", response_model=List[ProductResponse])
 def read_all_products(db: Session = Depends(get_db)):
@@ -24,6 +26,7 @@ def read_product(product_id: int, db: Session = Depends(get_db)):
 @router.post("/products", response_model=ProductResponse)
 def create_new_product(product: ProductCreate, db: Session = Depends(get_db)):
     return create_product(db, product)
+
 
 
 @router.delete("/products/{product_id}", response_model=ProductResponse)

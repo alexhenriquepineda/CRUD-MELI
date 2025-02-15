@@ -41,13 +41,13 @@ with st.expander("Adicionar um Novo Produto"):
 
         if submit_button:
             response = requests.post(
-                "http://backend:8000/products/",
+                "http://backend:8000/products",
                 json={
                     "name": name,
                     "description": description,
                     "price": price,
                     "category": category,
-                    "email_supplier": email_supplier,
+                    "email_supplier": email_supplier
                 },
             )
             show_response_message(response)
@@ -138,9 +138,9 @@ with st.expander("Atualizar Produto"):
             if new_price > 0:
                 update_data["price"] = new_price
             if new_email:
-                update_data["email_fornecedor"] = new_email
+                update_data["email_supplier"] = new_email
             if new_categoria:
-                update_data["categoria"] = new_categoria
+                update_data["category"] = new_categoria
 
             if update_data:
                 response = requests.put(
